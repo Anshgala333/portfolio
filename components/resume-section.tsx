@@ -43,7 +43,7 @@ export default function ResumeSection() {
               Download my resume to learn more about my experience and skills.
             </p>
             <button
-              className="w-full bg-[#F46C38]  text-black font-bold h-12 rounded-lg shadow-md "
+              className="w-full bg-[#F46C38]  text-black font-semibold h-12 rounded-lg shadow-md "
               onClick={() => {}}
               type="button"
             >
@@ -71,7 +71,7 @@ export default function ResumeSection() {
               Check out my problem-solving skills and coding practice.
             </p>
             <button
-              className="w-full bg-[#C5FF41] hover:bg-[#C5FF41]/90 text-black font-bold h-12 rounded-lg shadow-md "
+              className="w-full bg-[#C5FF41] hover:bg-[#C5FF41]/90 text-black font-semibold h-12 rounded-lg shadow-md "
               onClick={() => window.open("https://leetcode.com/u/Anshhhhh/", "_blank")}
               type="button"
             >
