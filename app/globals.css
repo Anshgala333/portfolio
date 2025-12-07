@@ -93,3 +93,8 @@
 html {
   background-color: #0A0908;
 }
+
+.char {
+  opacity: 0;
+  transform: translateY(100px) rotateX(-90deg);
+}

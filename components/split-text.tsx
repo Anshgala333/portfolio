@@ -10,23 +10,33 @@ interface SplitTextProps {
   duration?: number;
 }
 
-export default function SplitText({ text, className = "", delay = 0, duration = 0.6 }: SplitTextProps) {
+export default function SplitText({
+  text,
+  className = "",
+  delay = 0,
+  duration = 0.6,
+}: SplitTextProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    const chars = ref.current.querySelectorAll('.char');
+    const chars = ref.current.querySelectorAll(".char");
+        gsap.set(ref.current, { opacity: 0 });
+
 
     gsap.set(chars, {
       opacity: 0,
       y: 100,
       rotationX: -90,
     });
-
+    // Initial hidden state
+   
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          gsap.to(ref.current, { opacity: 1, duration: 0.01 });
+
           gsap.to(chars, {
             opacity: 1,
             y: 0,
@@ -59,7 +69,9 @@ export default function SplitText({ text, className = "", delay = 0, duration = 
           return (
             <span
               key={`${char}-${index}`}
-              className={`char inline-block ${isSpace ? "w-2 md:w-3" : ""} ${isFirstPart ? "text-white" : "text-[#F46C38]"}`}
+              className={`char inline-block ${isSpace ? "w-2 md:w-3" : ""} ${
+                isFirstPart ? "text-white" : "text-[#F46C38]"
+              }`}
               style={{
                 perspective: "1000px",
                 fontWeight: 900,

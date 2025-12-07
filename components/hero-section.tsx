@@ -2,45 +2,14 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, Code, Sparkles, Zap, Rocket, Cpu } from "lucide-react";
-import { useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import SplitText from "./split-text";
+
 import BackgroundDecoration from "./background-decoration";
 import Image from "next/image";
 
 export default function HeroSection() {
   const floatingRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (floatingRef.current) {
-      const icons = floatingRef.current.querySelectorAll(".floating-icon");
-
-      icons.forEach((icon, index) => {
-        const element = icon as HTMLElement;
-        let startY = 0;
-        let currentY = 0;
-        const amplitude = 20;
-        const speed = 0.002 + index * 0.0003;
-        let animationId: number;
-
-        const animate = () => {
-          startY += speed;
-          currentY = Math.sin(startY) * amplitude;
-          element.style.transform = `translateY(${currentY}px)`;
-          animationId = requestAnimationFrame(animate);
-        };
-
-        setTimeout(() => {
-          animate();
-        }, index * 500);
-
-        return () => {
-          if (animationId) {
-            cancelAnimationFrame(animationId);
-          }
-        };
-      });
-    }
-  }, []);
 
   return (
     <section
@@ -94,13 +63,15 @@ export default function HeroSection() {
               </motion.div>
             </div>
 
-            <div className="mb-6">
-              <SplitText
-                text="ANSH GALA"
-                className="text-5xl md:text-6xl lg:text-7xl font-black"
-                duration={0.6}
-              />
-            </div>
+            <Suspense fallback={""}>
+              <div className="mb-6">
+                <SplitText
+                  text="ANSH GALA"
+                  className="text-5xl md:text-6xl lg:text-7xl font-black"
+                  duration={0.6}
+                />
+              </div>
+            </Suspense>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -159,7 +130,7 @@ export default function HeroSection() {
             className="flex justify-center md:justify-end relative"
             ref={floatingRef}
           >
-            <div className="relative group">
+            <div className="relative group mr-20">
               <div className="absolute inset-0 bg-gradient-to-br from-[#F46C38]/20 via-[#C5FF41]/10 to-transparent rounded-2xl blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
 
               <div className="relative w-80 h-96 rounded-2xl border-2 border-[#F46C38]/30 flex items-center justify-center backdrop-blur-sm bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 shadow-2xl overflow-hidden">
@@ -175,7 +146,7 @@ export default function HeroSection() {
                     src="/images/anshgala1.png"
                     alt="Photo"
                     fill
-                   className="object-cover rounded-xl"
+                    className="object-cover rounded-xl"
                   />{" "}
                 </motion.div>
 
@@ -183,7 +154,7 @@ export default function HeroSection() {
               </div>
 
               <motion.div
-                className="floating-icon absolute top-20 -left-6 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-zinc-900 to-zinc-950 border-2 border-zinc-700/40 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm"
+                className="floating-icon absolute top-10 -left-6 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-zinc-900 to-zinc-950 border-2 border-zinc-700/40 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0, rotate: 90 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{
@@ -192,11 +163,16 @@ export default function HeroSection() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                <Rocket className="w-6 h-6 text-zinc-400" />
+                <Image
+                  src="/images/react.png"
+                  alt="Photo"
+                  fill
+                  className="object-contain rounded-xl p-1"
+                />
               </motion.div>
 
               <motion.div
-                className="floating-icon absolute bottom-20 -right-6 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-zinc-900 to-zinc-950 border-2 border-zinc-700/40 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm"
+                className="floating-icon absolute bottom-12 -right-6 -translate-y-1/2 w-12 h-12 bg-gradient-to-br from-zinc-900 to-zinc-950 border-2 border-zinc-700/40 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0, rotate: -90 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{
@@ -205,7 +181,12 @@ export default function HeroSection() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                <Cpu className="w-6 h-6 text-zinc-400" />
+                <Image
+                  src="/images/python.png"
+                  alt="Photo"
+                  fill
+                  className="object-contain rounded-xl p-1"
+                />{" "}
               </motion.div>
             </div>
           </motion.div>
